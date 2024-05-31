@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: blog-service
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:7000/blog-service
+    username: DB_USER
+    password: DB_PASSWORD
+  jpa:
+    hibernate.ddl-auto: validate
+    generate-ddl: true
+    show-sql: true
+server:
+  port: 9091 
