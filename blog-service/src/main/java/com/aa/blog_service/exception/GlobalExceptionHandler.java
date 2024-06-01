@@ -1,4 +1,4 @@
-package com.aa.blog_service.advice;
+package com.aa.blog_service.exception;
 
 import java.util.ArrayList;
 import java.util.List;
