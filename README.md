@@ -35,17 +35,17 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
       - **Update Author**: PUT /api/v1/authors/{authorId}  <br>
       - **Get Author By ID**: GET /api/v1/authors/{authorId}  <br>
       - **Delete Author**: DELETE /api/v1/authors/{authorId}  <br>
-      - **Get All Authors**: GET /api/v1/authors  <br>
+      - **Get All Authors**: GET /api/v1/authors  <br>  <br>
   
-  **POST Controller**
-      - **Create Post**: POST /api/v1/posts
-      - **Update Post**: PUT /api/v1/posts/{postId}
-      - **Get Post By ID**: GET /api/v1/posts/{postId}
-      - **Delete Post**: DELETE /api/v1/posts/{postId}
-      - **Get All Posts**: GET /api/v1/posts
-      - **Get Posts By Author**: GET /api/v1/posts/author-posts/{authorId}
-      - **Get Author Deleted Posts**: GET /api/v1/posts/author-deleted-posts/{authorId}
-      - **Get Author Active Posts**: GET /api/v1/posts/author-active-posts/{authorId}
+  **POST Controller**  <br>
+      - **Create Post**: POST /api/v1/posts  <br>
+      - **Update Post**: PUT /api/v1/posts/{postId}  <br>
+      - **Get Post By ID**: GET /api/v1/posts/{postId}  <br>
+      - **Delete Post**: DELETE /api/v1/posts/{postId}  <br>
+      - **Get All Posts**: GET /api/v1/posts  <br>
+      - **Get Posts By Author**: GET /api/v1/posts/author-posts/{authorId  <br>
+      - **Get Author Deleted Posts**: GET /api/v1/posts/author-deleted-posts/{authorId}  <br>
+      - **Get Author Active Posts**: GET /api/v1/posts/author-active-posts/{authorId}  <br>
     
    
 **Scripts for Database Setup:**
