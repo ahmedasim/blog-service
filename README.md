@@ -30,12 +30,12 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 **API Endpoints:**
     You can use also Swagger URL **(http://localhost:9091/swagger-ui/index.html)** for API Endpoints. 
   
-   **Author Controller**
+   **Author Controller**  <br>
       - **Create Author**: POST /api/v1/authors <br>
-      - **Update Author**: PUT /api/v1/authors/{authorId}
-      - **Get Author By ID**: GET /api/v1/authors/{authorId}
-      - **Delete Author**: DELETE /api/v1/authors/{authorId}
-      - **Get All Authors**: GET /api/v1/authors
+      - **Update Author**: PUT /api/v1/authors/{authorId}  <br>
+      - **Get Author By ID**: GET /api/v1/authors/{authorId}  <br>
+      - **Delete Author**: DELETE /api/v1/authors/{authorId}  <br>
+      - **Get All Authors**: GET /api/v1/authors  <br>
   
   **POST Controller**
       - **Create Post**: POST /api/v1/posts
