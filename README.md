@@ -5,7 +5,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 
 ## Technology Stack
 - Spring Boot 3.3.0
-- Java 17 (Used Java 17 instead of Java 18 due to some Maven compatibility issues on my machine, you can change to Java 18+ in `pom.xml`)
+- Java 17 (**Used Java 17 instead of Java 18 due to some Maven compatibility issues on my machine, you can change to Java 18+ in `pom.xml`**)
 - JUnit 5
 - Maven
 - Hibernate
@@ -52,7 +52,9 @@ You can use the Swagger URL ([http://localhost:9091/swagger-ui/index.html](http:
 
 - Create a script file named `V01__DB_SCHEMA.sql` containing SQL commands to create the necessary database schema and tables, as well as any required indexes.
 - Provide sample data insertion scripts (`V01__DB_SCHEMA.sql`) to populate the database with initial data.
-- Use Flyway for database migration script (`src/main/resources/db/migration/V01__DB_SCHEMA.sql`).
+- Used Flyway for database migration script (`src/main/resources/db/migration/V01__DB_SCHEMA.sql`).
+  - Application will automatically execute these scripts on startup.   
+      
 
 ## Running Unit Tests
 
