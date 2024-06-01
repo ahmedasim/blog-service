@@ -2,6 +2,7 @@ package com.aa.blog_service.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -67,6 +68,24 @@ public class AuthorControllerTest {
     }
     
     @Test
+    public void testSaveAuthorWhenInvalidName() throws Exception {
+        AuthorResponseDto responseDto = new AuthorResponseDto();
+        responseDto.setAuthorId(1L);
+        responseDto.setName("");
+
+        AuthorRequestDto requestDto = new AuthorRequestDto();
+        requestDto.setName("");
+
+        Mockito.when(authorService.saveAuthor(any(AuthorRequestDto.class))).thenReturn(responseDto);
+
+        mockMvc.perform(post("/api/v1/authors")
+        		.contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(requestDto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(false));
+    }
+    
+    @Test
     public void testUpdateAuthor() throws Exception {
         AuthorResponseDto responseDto = new AuthorResponseDto();
         responseDto.setAuthorId(1L);
@@ -84,6 +103,19 @@ public class AuthorControllerTest {
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.response.name").value("Asim Ahmed Updated"))
                 .andExpect(jsonPath("$.message").value("Author updated successfully"));
+    }
+    
+    @Test
+    public void testUpdateAuthorWhenInvalidAuthorId() throws Exception {
+        AuthorRequestDto requestDto = new AuthorRequestDto();
+        requestDto.setName("Asim Ahmed Updated");
+
+        when(authorService.updateAuthor(any(AuthorRequestDto.class), anyLong())).thenThrow(new RuntimeException("Author not found!"));
+        mockMvc.perform(put("/api/v1/authors/0")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(requestDto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(false));
     }
     
     @Test

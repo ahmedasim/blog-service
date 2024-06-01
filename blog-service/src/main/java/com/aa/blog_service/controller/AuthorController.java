@@ -1,6 +1,5 @@
 package com.aa.blog_service.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aa.blog_service.dto.AuthorRequestDto;
 import com.aa.blog_service.dto.AuthorResponseDto;
-import com.aa.blog_service.dto.common.ApiError;
 import com.aa.blog_service.dto.common.ApiResponse;
 import com.aa.blog_service.service.AuthorService;
 
@@ -31,84 +29,49 @@ public class AuthorController {
 	@PostMapping
 	public ApiResponse<AuthorResponseDto> saveAuthor(@Valid @RequestBody AuthorRequestDto requestDto) {
 		ApiResponse<AuthorResponseDto> apiResponse = new ApiResponse<>();
-		try {
-			AuthorResponseDto responseDto = service.saveAuthor(requestDto);
-			apiResponse.setSuccess(true);
-			apiResponse.setResponse(responseDto);
-			apiResponse.setMessage("Author saved successfully");
-			return apiResponse;
-		}catch(Exception e) {
-			List<ApiError> errors = new ArrayList<ApiError>();
-			errors.add(new ApiError("", "", e.getMessage()));
-			apiResponse.setApiErrors(errors );
-		}
+		AuthorResponseDto responseDto = service.saveAuthor(requestDto);
+		apiResponse.setSuccess(true);
+		apiResponse.setResponse(responseDto);
+		apiResponse.setMessage("Author saved successfully");
 		return apiResponse;
 	}
 	
 	@PutMapping("/{authorId}")
 	public ApiResponse<AuthorResponseDto> updateAuthor(@Valid @RequestBody AuthorRequestDto requestDto, @PathVariable Long authorId) {
 		ApiResponse<AuthorResponseDto> apiResponse = new ApiResponse<>();
-		try {
-			AuthorResponseDto responseDto = service.updateAuthor(requestDto, authorId);
-			apiResponse.setSuccess(true);
-			apiResponse.setResponse(responseDto);
-			apiResponse.setMessage("Author updated successfully");
-			return apiResponse;
-		}catch(Exception e) {
-			List<ApiError> errors = new ArrayList<ApiError>();
-			errors.add(new ApiError("", "", e.getMessage()));
-			apiResponse.setApiErrors(errors );
-		}
+		AuthorResponseDto responseDto = service.updateAuthor(requestDto, authorId);
+		apiResponse.setSuccess(true);
+		apiResponse.setResponse(responseDto);
+		apiResponse.setMessage("Author updated successfully");
 		return apiResponse;
 	}
 	
 	@DeleteMapping("/{authorId}")
 	public ApiResponse<AuthorResponseDto> deleteAuthor(@PathVariable Long authorId) {
 		ApiResponse<AuthorResponseDto> apiResponse = new ApiResponse<>();
-		try {
-			service.deleteAuthor(authorId);
-			apiResponse.setSuccess(true);
-			apiResponse.setMessage("Author deleted successfully");
-			return apiResponse;
-		}catch(Exception e) {
-			List<ApiError> errors = new ArrayList<ApiError>();
-			errors.add(new ApiError("", "", e.getMessage()));
-			apiResponse.setApiErrors(errors );
-		}
+		service.deleteAuthor(authorId);
+		apiResponse.setSuccess(true);
+		apiResponse.setMessage("Author deleted successfully");
 		return apiResponse;
 	}
 	
 	@GetMapping("/{authorId}")
 	public ApiResponse<AuthorResponseDto> getAuthorById(@PathVariable Long authorId) {
 		ApiResponse<AuthorResponseDto> apiResponse = new ApiResponse<>();
-		try {
-			AuthorResponseDto responseDto = service.getAuthorById(authorId);
-			apiResponse.setSuccess(true);
-			apiResponse.setResponse(responseDto);
-			apiResponse.setMessage("Author fetched successfully");
-			return apiResponse;
-		}catch(Exception e) {
-			List<ApiError> errors = new ArrayList<ApiError>();
-			errors.add(new ApiError("", "", e.getMessage()));
-			apiResponse.setApiErrors(errors );
-		}
+		AuthorResponseDto responseDto = service.getAuthorById(authorId);
+		apiResponse.setSuccess(true);
+		apiResponse.setResponse(responseDto);
+		apiResponse.setMessage("Author fetched successfully");
 		return apiResponse;
 	}
 	
 	@GetMapping
 	public ApiResponse<List<AuthorResponseDto>> getAuthors() {
 		ApiResponse<List<AuthorResponseDto>> apiResponse = new ApiResponse<>();
-		try {
-			List<AuthorResponseDto> responseList = service.getAuthors();
-			apiResponse.setSuccess(true);
-			apiResponse.setResponse(responseList);
-			apiResponse.setMessage("Authors fetched successfully");
-			return apiResponse;
-		}catch(Exception e) {
-			List<ApiError> errors = new ArrayList<ApiError>();
-			errors.add(new ApiError("", "", e.getMessage()));
-			apiResponse.setApiErrors(errors );
-		}
+		List<AuthorResponseDto> responseList = service.getAuthors();
+		apiResponse.setSuccess(true);
+		apiResponse.setResponse(responseList);
+		apiResponse.setMessage("Authors fetched successfully");
 		return apiResponse;
 	}
 	
