@@ -29,24 +29,32 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 10. The application will start running on `localhost:9091`.
 
 ## API Endpoints
-You can use the Swagger URL ([http://localhost:9091/swagger-ui/index.html](http://localhost:9091/swagger-ui/index.html)) for API Endpoints.
+  You can use the Swagger URL ([http://localhost:9091/swagger-ui/index.html](http://localhost:9091/swagger-ui/index.html)) for API Endpoints.
+  
+  ### Author Controller
+  - Create Author: `POST /api/v1/authors`
+  - Update Author: `PUT /api/v1/authors/{authorId}`
+  - Get Author By ID: `GET /api/v1/authors/{authorId}`
+  - Delete Author: `DELETE /api/v1/authors/{authorId}`
+  - Get All Authors: `GET /api/v1/authors`
+  
+  ### Post Controller
+  - Create Post: `POST /api/v1/posts`
+  - Update Post: `PUT /api/v1/posts/{postId}`
+  - Get Post By ID: `GET /api/v1/posts/{postId}`
+  - Delete Post: `DELETE /api/v1/posts/{postId}`
+  - Get All Posts: `GET /api/v1/posts`
+  - Get Posts By Author: `GET /api/v1/posts/author-posts/{authorId}`
+  - Get Author Deleted Posts: `GET /api/v1/posts/author-deleted-posts/{authorId}`
+  - Get Author Active Posts: `GET /api/v1/posts/author-active-posts/{authorId}`
 
-### Author Controller
-- Create Author: `POST /api/v1/authors`
-- Update Author: `PUT /api/v1/authors/{authorId}`
-- Get Author By ID: `GET /api/v1/authors/{authorId}`
-- Delete Author: `DELETE /api/v1/authors/{authorId}`
-- Get All Authors: `GET /api/v1/authors`
+  ## Postman Collection
+    A Postman collection is provided to test the API endpoints with project. Use following steps to import collection in postman
+        1. Open Postman.
+        2. Click on the `Import` button in the top left corner.
+        3. Select `Upload Files` and choose the `blog-service.postman_collection.json` file from the project directory.
+        4. Click `Import`.
 
-### Post Controller
-- Create Post: `POST /api/v1/posts`
-- Update Post: `PUT /api/v1/posts/{postId}`
-- Get Post By ID: `GET /api/v1/posts/{postId}`
-- Delete Post: `DELETE /api/v1/posts/{postId}`
-- Get All Posts: `GET /api/v1/posts`
-- Get Posts By Author: `GET /api/v1/posts/author-posts/{authorId}`
-- Get Author Deleted Posts: `GET /api/v1/posts/author-deleted-posts/{authorId}`
-- Get Author Active Posts: `GET /api/v1/posts/author-active-posts/{authorId}`
 
 ## Scripts for Database Setup
 
@@ -68,57 +76,58 @@ The project is hosted on GitHub: [https://github.com/ahmedasim/blog-service](htt
 ## Project Structure
 
 ```markdown
-blog-service/  
-├── src/  
-│   ├── main/  
-│   │   ├── java/  
-│   │   │   └── com/  
-│   │   │       └── aa/  
-│   │   │           └── blog_service/  
-│   │   │               ├── BlogServiceApplication.java  
-│   │   │               ├── controller/  
-│   │   │               │   ├── AuthorController.java  
-│   │   │               │   └── PostController.java  
-│   │   │               ├── dto/  
-│   │   │               │   ├── AuthorRequestDto.java  
-│   │   │               │   ├── AuthorResponseDto.java  
-│   │   │               │   ├── PostRequestDto.java  
-│   │   │               │   ├── PostResponseDto.java  
-│   │   │               │   └── common/  
-│   │   │               │       ├── ApiError.java  
-│   │   │               │       └── ApiResponse.java  
-│   │   │               ├── entity/  
-│   │   │               │   ├── Author.java  
-│   │   │               │   └── Post.java  
-│   │   │               ├── exception/  
-│   │   │               │   └── GlobalExceptionHandler.java  
-│   │   │               ├── repo/  
-│   │   │               │   ├── AuthorRepo.java  
-│   │   │               │   └── PostRepo.java  
-│   │   │               ├── service/  
-│   │   │               │   ├── AuthorService.java  
-│   │   │               │   ├── PostService.java  
-│   │   │               │   └── impl/  
-│   │   │                   ├── AuthorServiceImpl.java  
-│   │   │                   └── PostServiceImpl.java  
-│   │   ├── resources/  
-│   │   │   ├── application.yml  
-│   │   │   └── db/  
-│   │   │       └── migration/  
-│   │   │           └── V01__DB_SCHEMA.sql  
-│   ├── test/  
-│   │   ├── java/  
-│   │   │   └── com/  
-│   │   │       └── aa/  
-│   │   │           └── blog_service/  
-│   │   │               ├── BlogServiceApplicationTests.java  
-│   │   │               ├── controller/  
-│   │   │               │   ├── AuthorControllerTest.java  
-│   │   │               │   └── PostControllerTest.java  
-│   │   │               ├── service/  
-│   │   │                   ├── AuthorServiceImplTest.java  
-│   │   │                   └── PostServiceImplTest.java  
-├── pom.xml  
+└── blog-service/  
+    ├── src/  
+    │   ├── main/  
+    │   │   ├── java/  
+    │   │   │   └── com/  
+    │   │   │       └── aa/  
+    │   │   │           └── blog_service/  
+    │   │   │               ├── BlogServiceApplication.java  
+    │   │   │               ├── controller/  
+    │   │   │               │   ├── AuthorController.java  
+    │   │   │               │   └── PostController.java  
+    │   │   │               ├── dto/  
+    │   │   │               │   ├── AuthorRequestDto.java  
+    │   │   │               │   ├── AuthorResponseDto.java  
+    │   │   │               │   ├── PostRequestDto.java  
+    │   │   │               │   ├── PostResponseDto.java  
+    │   │   │               │   └── common/  
+    │   │   │               │       ├── ApiError.java  
+    │   │   │               │       └── ApiResponse.java  
+    │   │   │               ├── entity/  
+    │   │   │               │   ├── Author.java  
+    │   │   │               │   └── Post.java  
+    │   │   │               ├── exception/  
+    │   │   │               │   └── GlobalExceptionHandler.java  
+    │   │   │               ├── repo/  
+    │   │   │               │   ├── AuthorRepo.java  
+    │   │   │               │   └── PostRepo.java  
+    │   │   │               ├── service/  
+    │   │   │               │   ├── AuthorService.java  
+    │   │   │               │   ├── PostService.java  
+    │   │   │               │   └── impl/  
+    │   │   │                   ├── AuthorServiceImpl.java  
+    │   │   │                   └── PostServiceImpl.java  
+    │   │   ├── resources/  
+    │   │   │   ├── application.yml  
+    │   │   │   └── db/  
+    │   │   │       └── migration/  
+    │   │   │           └── V01__DB_SCHEMA.sql  
+    │   ├── test/  
+    │   │   ├── java/  
+    │   │   │   └── com/  
+    │   │   │       └── aa/  
+    │   │   │           └── blog_service/  
+    │   │   │               ├── BlogServiceApplicationTests.java  
+    │   │   │               ├── controller/  
+    │   │   │               │   ├── AuthorControllerTest.java  
+    │   │   │               │   └── PostControllerTest.java  
+    │   │   │               ├── service/  
+    │   │   │                   ├── AuthorServiceImplTest.java  
+    │   │   │                   └── PostServiceImplTest.java  
+    ├── pom.xml
+└── blog-service.postman_collection.json  
 └── README.md  
 ```
 
