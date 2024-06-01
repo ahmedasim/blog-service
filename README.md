@@ -123,8 +123,8 @@ blog-service/
 ```
 
 ## Contributors
-Asim Ahmed
-Feel free to reach out for any further assistance or inquiries!
+Asim Ahmed <br>
+Feel free to reach out for any further assistance or inquiries! <br>
 
 ## Contact me:
 - Email: **sendtoasimoff@gmail.com**
