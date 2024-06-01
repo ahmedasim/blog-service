@@ -3,6 +3,7 @@ package com.aa.blog_service.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -77,12 +78,13 @@ public class PostServiceImplTest {
     public void testSavePost() {
         when(authorService.findById(1L)).thenReturn(author);
         when(repo.save(any(Post.class))).thenReturn(post);
-        when(objectMapper.convertValue(any(Post.class), any(Class.class))).thenReturn(responseDto);
+        when(objectMapper.convertValue(any(Post.class), eq(PostResponseDto.class))).thenReturn(responseDto);
 
         PostResponseDto result = postService.savePost(requestDto);
 
         assertEquals(responseDto, result);
     }
+
     
     @Test
     public void testSavePostInvalidAuthor() {
