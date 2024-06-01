@@ -56,6 +56,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 **Running Unit Tests:**
 - Run unit tests using Maven: `mvn test` or right click on project and Run As `Maven Test` or `Junit Test`
 - Check the test coverage report generated in the `target/site/jacoco/index.html` file.
+      - Test Coverage is not **100%** Because of some getter and setter methods. It's **97%**    
 
 **Project Repository:**
 The project is hosted on GitHub: **https://github.com/ahmedasim/blog-service**
@@ -63,4 +64,10 @@ The project is hosted on GitHub: **https://github.com/ahmedasim/blog-service**
 **Contributors:**
 - Asim Ahmed
 
-Feel free to reach out for any further assistance or inquiries!
+<b> Feel free to reach out for any further assistance or inquiries!
+Contact me :</b><br>
+Linked in: <b>https://www.linkedin.com/in/ahmedasim01/</b> <br>
+Email: <b>sendtoasimoff@gmail.com</b> <br>
+Hacker Rank: <b>https://www.hackerrank.com/ahmedasim01</b> <br>
+Medium: <b>https://medium.com/@ahmedasim01</b> <br>
+
