@@ -13,6 +13,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 - MySQL
 - Flyway
 - Swagger (spring doc open ui)
+- Jacoco
 
 
 **Instructions to Run the Project:**
@@ -61,11 +62,66 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 **Project Repository:**
 The project is hosted on GitHub: **https://github.com/ahmedasim/blog-service**
 
+**Project Structure:**
+
+blog-service/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── aa/
+│   │   │           └── blog_service/
+│   │   │               ├── BlogServiceApplication.java
+│   │   │               ├── controller/
+│   │   │               │   ├── AuthorController.java
+│   │   │               │   └── PostController.java
+│   │   │               ├── dto/
+│   │   │               │   ├── AuthorRequestDto.java
+│   │   │               │   ├── AuthorResponseDto.java
+│   │   │               │   ├── PostRequestDto.java
+│   │   │               │   ├── PostResponseDto.java
+│   │   │               │   └── common/
+│   │   │               │       ├── ApiError.java
+│   │   │               │       └── ApiResponse.java
+│   │   │               ├── entity/
+│   │   │               │   ├── Author.java
+│   │   │               │   └── Post.java
+│   │   │               ├── exception/
+│   │   │               │   └── GlobalExceptionHandler.java
+│   │   │               ├── repo/
+│   │   │               │   ├── AuthorRepo.java
+│   │   │               │   └── PostRepo.java
+│   │   │               ├── service/
+│   │   │               │   ├── AuthorService.java
+│   │   │               │   ├── PostService.java
+│   │   │               │   └── impl/
+│   │   │               │       ├── AuthorServiceImpl.java
+│   │   │               │       └── PostServiceImpl.java
+│   │   ├── resources/
+│   │   │   ├── application.yml
+│   │   │   └── db
+│   │   │      └── migration
+│   │   │        └── V01__DB_SCHEMA.sql
+│   ├── test/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── aa/
+│   │   │           └── blog_service/
+│   │   │               ├── BlogServiceApplicationTests.java
+│   │   │               ├── controller/
+│   │   │               │   ├── AuthorControllerTest.java
+│   │   │               │   └── PostControllerTest.java
+│   │   │               ├── service/
+│   │   │               │   ├── AuthorServiceImplTest.java
+│   │   │               │   └── PostServiceImplTest.java
+├── pom.xml
+└── README.md
+
 **Contributors:**
 - Asim Ahmed
 
 <b> Feel free to reach out for any further assistance or inquiries!
-Contact me :</b><br>
+<br> Contact me :</b><br>
 Linked in: <b>https://www.linkedin.com/in/ahmedasim01/</b> <br>
 Email: <b>sendtoasimoff@gmail.com</b> <br>
 Hacker Rank: <b>https://www.hackerrank.com/ahmedasim01</b> <br>
