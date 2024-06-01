@@ -1,4 +1,4 @@
-package com.aa.blog_service;
+package com.aa.blog_service.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +21,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.aa.blog_service.controller.AuthorController;
 import com.aa.blog_service.dto.AuthorRequestDto;
 import com.aa.blog_service.dto.AuthorResponseDto;
 import com.aa.blog_service.service.AuthorService;
@@ -31,6 +31,9 @@ public class AuthorControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    
+    @Mock
+    private ObjectMapper objectMapper;
 
     @MockBean
     private AuthorService authorService;

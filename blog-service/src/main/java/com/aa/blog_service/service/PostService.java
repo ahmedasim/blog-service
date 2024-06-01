@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.aa.blog_service.dto.PostRequestDto;
 import com.aa.blog_service.dto.PostResponseDto;
-import com.aa.blog_service.entity.Author;
 import com.aa.blog_service.entity.Post;
 
 public interface PostService{

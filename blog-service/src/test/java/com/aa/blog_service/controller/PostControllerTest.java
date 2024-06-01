@@ -1,4 +1,4 @@
-package com.aa.blog_service;
+package com.aa.blog_service.controller;
 
 import com.aa.blog_service.controller.PostController;
 import com.aa.blog_service.dto.PostRequestDto;
