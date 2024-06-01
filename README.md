@@ -31,7 +31,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
     You can use also Swagger URL **(http://localhost:9091/swagger-ui/index.html)** for API Endpoints. 
   
    **Author Controller**
-      - **Create Author**: POST /api/v1/authors
+      - **Create Author**: POST /api/v1/authors <br>
       - **Update Author**: PUT /api/v1/authors/{authorId}
       - **Get Author By ID**: GET /api/v1/authors/{authorId}
       - **Delete Author**: DELETE /api/v1/authors/{authorId}
@@ -54,7 +54,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 - Use Flyway for database migration script (resrouce/db/migration/V01__DB_SCHEMA.sql)
 
 **Running Unit Tests:**
-- Run unit tests using Maven: `mvn test`.
+- Run unit tests using Maven: `mvn test` or right click on project and Run As `Maven Test` or `Junit Test`
 - Check the test coverage report generated in the `target/site/jacoco/index.html` file.
 
 **Project Repository:**
