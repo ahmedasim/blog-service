@@ -14,6 +14,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 - Flyway
 - Swagger (spring doc open ui)
 - Jacoco
+- Lombok
 
 ## Instructions to Run the Project
 
