@@ -5,7 +5,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 
 ## Technology Stack
 - Spring Boot 3.3.0
-- Java 17 (**Used Java 17 instead of Java 18 due to some Maven compatibility issues on my machine, you can change to Java 18+ in `pom.xml`**)
+- Java 17 (**Used Java 17 instead of Java 18+ due to some Maven compatibility issues on my machine, you can change to Java 18+ in `pom.xml`**)
 - JUnit 5
 - Maven
 - Hibernate
@@ -69,7 +69,7 @@ This project is a simple Blog Management System developed using Spring Boot, Jav
 
 - Run unit tests using Maven: `mvn test` or right-click on the project and Run As Maven Test or Junit Test.
 - Check the test coverage report generated in the `target/site/jacoco/index.html` file. 
-- Test coverage is not 100% due to some getter and setter methods. It's 97%.
+- Test coverage is not 100% due to some getter and setter methods. It's 97%. Although the test coverage is high, there are still many test cases missing that address various aspects of the code and business logic.
 - **Please ensure the database is properly configured and running before executing the test cases. The test cases will fail if the database is not running. Note that I have not used any separate profile, or in-memory database, or test containers for these test cases right now.**
 
 ## Project Repository
