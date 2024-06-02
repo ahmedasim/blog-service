@@ -1,7 +1,6 @@
 package com.aa.blog_service.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.aa.blog_service.dto.AuthorRequestDto;
 import com.aa.blog_service.dto.AuthorResponseDto;
 import com.aa.blog_service.entity.Author;
+import com.aa.blog_service.exception.ResourceNotFoundException;
 import com.aa.blog_service.repo.AuthorRepo;
 import com.aa.blog_service.service.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,11 +56,6 @@ public class AuthorServiceImpl implements AuthorService{
 
 	@Override
 	public Author findById(Long authorId) {
-		Optional<Author> authorOpt = repo.findById(authorId);
-		if(authorOpt.isEmpty()) {
-			throw new RuntimeException("Author not found!");
-		}else {
-			return authorOpt.get();
-		}
+		return repo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("Author not found!"));
 	}
 }

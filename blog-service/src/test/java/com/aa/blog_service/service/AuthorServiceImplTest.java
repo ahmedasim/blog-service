@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.aa.blog_service.dto.AuthorRequestDto;
 import com.aa.blog_service.dto.AuthorResponseDto;
 import com.aa.blog_service.entity.Author;
+import com.aa.blog_service.exception.ResourceNotFoundException;
 import com.aa.blog_service.repo.AuthorRepo;
 import com.aa.blog_service.service.impl.AuthorServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -119,11 +120,13 @@ public class AuthorServiceImplTest {
 
     @Test
     public void testFindByIdNotFound() {
-        when(repo.findById(1L)).thenReturn(Optional.empty());
+        when(repo.findById(0L)).thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class, () -> {
-            authorService.findById(1L);
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+            authorService.findById(0L);
         });
+        
+        assertEquals("Author not found!", exception.getMessage());
     }
 }
 

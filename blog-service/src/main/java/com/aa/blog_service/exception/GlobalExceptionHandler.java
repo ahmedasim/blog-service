@@ -15,6 +15,20 @@ import com.aa.blog_service.dto.common.ApiResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+    public ApiResponse<?> handleGlobalException(ResourceNotFoundException ex) { 
+        ApiResponse<?> apiResponse = new ApiResponse<>();
+        List<ApiError> errors = new ArrayList<>();
+        ApiError error = new ApiError();
+        error.setHttpStatusCode(HttpStatus.NOT_FOUND + "");
+        error.setCustomErrorCode("");
+        error.setMessage(ex.getMessage());
+        errors.add(error);
+        apiResponse.setApiErrors(errors);
+        return apiResponse;
+    }
+	
 	@ExceptionHandler(Exception.class)
     public ApiResponse<?> handleGlobalException(Exception ex) { 
         ApiResponse<?> apiResponse = new ApiResponse<>();

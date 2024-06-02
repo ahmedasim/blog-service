@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.aa.blog_service.dto.AuthorRequestDto;
 import com.aa.blog_service.dto.AuthorResponseDto;
+import com.aa.blog_service.exception.ResourceNotFoundException;
 import com.aa.blog_service.service.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -163,6 +164,15 @@ public class AuthorControllerTest {
                 .andExpect(jsonPath("$.response[0].name").value("Asim Ahmed"))
                 .andExpect(jsonPath("$.response[1].name").value("Taha Siddiqui"))
                 .andExpect(jsonPath("$.message").value("Authors fetched successfully"));
+    }
+    
+    @Test
+    public void testGetAuthorByIdWhenInvalidId() throws Exception {
+        when(authorService.getAuthorById(0L)).thenThrow(new ResourceNotFoundException("Author not found!"));
+        mockMvc.perform(get("/api/v1/authors/0")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(false));
     }
 
 }

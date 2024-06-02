@@ -2,6 +2,7 @@ package com.aa.blog_service.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.aa.blog_service.dto.PostRequestDto;
 import com.aa.blog_service.dto.PostResponseDto;
+import com.aa.blog_service.exception.ResourceNotFoundException;
 import com.aa.blog_service.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -195,5 +197,14 @@ public class PostControllerTest {
                 .andExpect(jsonPath("$.response[0].text").value("Active Post 1"))
                 .andExpect(jsonPath("$.response[1].text").value("Active Post 2"))
                 .andExpect(jsonPath("$.message").value("Posts fetched successfully"));
+    }
+    
+    @Test
+    public void testGetPostByIdWhenInvalidPostId() throws Exception {
+        when(postService.getPostById(0L)).thenThrow(new ResourceNotFoundException("Post not found!"));
+        mockMvc.perform(get("/api/v1/posts/0")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(false));
     }
 }

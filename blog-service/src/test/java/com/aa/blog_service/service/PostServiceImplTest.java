@@ -22,6 +22,7 @@ import com.aa.blog_service.dto.PostRequestDto;
 import com.aa.blog_service.dto.PostResponseDto;
 import com.aa.blog_service.entity.Author;
 import com.aa.blog_service.entity.Post;
+import com.aa.blog_service.exception.ResourceNotFoundException;
 import com.aa.blog_service.repo.PostRepo;
 import com.aa.blog_service.service.impl.PostServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -83,18 +84,6 @@ public class PostServiceImplTest {
         PostResponseDto result = postService.savePost(requestDto);
 
         assertEquals(responseDto, result);
-    }
-
-    
-    @Test
-    public void testSavePostInvalidAuthor() {
-        when(authorService.findById(1L)).thenReturn(null);
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            postService.savePost(requestDto);
-        });
-
-        assertEquals("Invalid author id!", exception.getMessage());
     }
 
     @Test
@@ -178,10 +167,10 @@ public class PostServiceImplTest {
 
     @Test
     public void testFindByIdNotFound() {
-        when(repo.findById(1L)).thenReturn(Optional.empty());
+        when(repo.findById(0L)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            postService.findById(1L);
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+            postService.findById(0L);
         });
 
         assertEquals("Post not found!", exception.getMessage());
