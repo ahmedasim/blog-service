@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,6 +26,7 @@ import com.aa.blog_service.dto.AuthorResponseDto;
 import com.aa.blog_service.exception.ResourceNotFoundException;
 import com.aa.blog_service.service.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.RuntimeJsonMappingException;
 
 @WebMvcTest(AuthorController.class)
 public class AuthorControllerTest {
@@ -34,9 +34,6 @@ public class AuthorControllerTest {
     @Autowired
     private MockMvc mockMvc;
     
-    @Mock
-    private ObjectMapper objectMapper;
-
     @MockBean
     private AuthorService authorService;
     
@@ -62,10 +59,23 @@ public class AuthorControllerTest {
         mockMvc.perform(post("/api/v1/authors")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(requestDto)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.response.name").value("Asim Ahmed"))
                 .andExpect(jsonPath("$.message").value("Author saved successfully"));
+    }
+    
+    @Test
+    public void testSaveAuthorWhenThrowGlobalException() throws Exception {
+         AuthorRequestDto requestDto = new AuthorRequestDto();
+         requestDto.setName("Asim Ahmed");
+
+        when(authorService.saveAuthor(any(AuthorRequestDto.class))).thenThrow(new RuntimeJsonMappingException("Failed: Unrecognized field"));
+        mockMvc.perform(put("/api/v1/authors")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(requestDto)))
+        		.andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.success").value(false));
     }
     
     @Test
@@ -82,7 +92,7 @@ public class AuthorControllerTest {
         mockMvc.perform(post("/api/v1/authors")
         		.contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(requestDto)))
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.success").value(false));
     }
     
@@ -111,13 +121,13 @@ public class AuthorControllerTest {
         AuthorRequestDto requestDto = new AuthorRequestDto();
         requestDto.setName("Asim Ahmed Updated");
 
-        when(authorService.updateAuthor(any(AuthorRequestDto.class), anyLong())).thenThrow(new RuntimeException("Author not found!"));
+        when(authorService.updateAuthor(any(AuthorRequestDto.class), anyLong())).thenThrow(new ResourceNotFoundException("Author not found!"));
         mockMvc.perform(put("/api/v1/authors/0")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(requestDto)))
-                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(false));
     }
+    
     
     @Test
     public void testDeleteAuthor() throws Exception {
@@ -171,7 +181,7 @@ public class AuthorControllerTest {
         when(authorService.getAuthorById(0L)).thenThrow(new ResourceNotFoundException("Author not found!"));
         mockMvc.perform(get("/api/v1/authors/0")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false));
     }
 

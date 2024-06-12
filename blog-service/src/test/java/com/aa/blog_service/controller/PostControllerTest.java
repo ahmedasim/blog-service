@@ -59,7 +59,7 @@ public class PostControllerTest {
         mockMvc.perform(post("/api/v1/posts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(requestDto)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.response.text").value("Sample Post"))
                 .andExpect(jsonPath("$.message").value("Post saved successfully"));
@@ -204,7 +204,7 @@ public class PostControllerTest {
         when(postService.getPostById(0L)).thenThrow(new ResourceNotFoundException("Post not found!"));
         mockMvc.perform(get("/api/v1/posts/0")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false));
     }
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
-	String httpStatusCode;
-	String customErrorCode;
+	String errorCode;
+	String fieldName;
 	String message;
 }

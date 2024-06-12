@@ -3,6 +3,8 @@ package com.aa.blog_service.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,82 +29,83 @@ public class PostController {
 	PostService service;
 	
 	@PostMapping
-	public ApiResponse<PostResponseDto> savePost(@Valid @RequestBody PostRequestDto requestDto) {
+	public ResponseEntity<ApiResponse<PostResponseDto>> savePost(@Valid @RequestBody PostRequestDto requestDto) {
 		ApiResponse<PostResponseDto> apiResponse = new ApiResponse<>();
 		PostResponseDto responseDto = service.savePost(requestDto);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseDto);
 		apiResponse.setMessage("Post saved successfully");
-		return apiResponse;
+		return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
 	}
 	
 	@PutMapping("/{postId}")
-	public ApiResponse<PostResponseDto> updatePost(@RequestBody PostRequestDto requestDto, @PathVariable Long postId) {
+	public ResponseEntity<ApiResponse<PostResponseDto>> updatePost(@RequestBody PostRequestDto requestDto, @PathVariable Long postId) {
 		ApiResponse<PostResponseDto> apiResponse = new ApiResponse<>();
 		PostResponseDto responseDto = service.updatePost(requestDto, postId);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseDto);
 		apiResponse.setMessage("Post updated successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@DeleteMapping("/{postId}")
-	public ApiResponse<PostResponseDto> deletePost(@PathVariable Long postId) {
+	//Sending Ok, cause contents are not actually deleted
+	public ResponseEntity<ApiResponse<PostResponseDto>> deletePost(@PathVariable Long postId) {
 		ApiResponse<PostResponseDto> apiResponse = new ApiResponse<>();
 		service.deletePost(postId);
 		apiResponse.setSuccess(true);
 		apiResponse.setMessage("Post deleted successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping("/{postId}")
-	public ApiResponse<PostResponseDto> getPostById(@PathVariable Long postId) {
+	public ResponseEntity<ApiResponse<PostResponseDto>> getPostById(@PathVariable Long postId) {
 		ApiResponse<PostResponseDto> apiResponse = new ApiResponse<>();
 		PostResponseDto responseDto = service.getPostById(postId);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseDto);
 		apiResponse.setMessage("Post fetched successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping
-	public ApiResponse<List<PostResponseDto>> findAll() {
+	public ResponseEntity<ApiResponse<List<PostResponseDto>>> findAll() {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
 		List<PostResponseDto> responseList = service.getPosts();
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseList);
 		apiResponse.setMessage("Posts fetched successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping("/author-posts/{authorId}")
-	public ApiResponse<List<PostResponseDto>> getPostsByAuthorId(@PathVariable Long authorId) {
+	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getPostsByAuthorId(@PathVariable Long authorId) {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
 		List<PostResponseDto> responseList = service.getPostsByAuthorId(authorId);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseList);
 		apiResponse.setMessage("Posts fetched successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping("/author-deleted-posts/{authorId}")
-	public ApiResponse<List<PostResponseDto>> getDeletedPostByAuthor(@PathVariable Long authorId) {
+	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getDeletedPostByAuthor(@PathVariable Long authorId) {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
 		List<PostResponseDto> responseList = service.getAuthorPostsByAuthorIdAndDeleted(authorId, true);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseList);
 		apiResponse.setMessage("Posts fetched successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping("/author-active-posts/{authorId}")
-	public ApiResponse<List<PostResponseDto>> getActivePostByAuthor(@PathVariable Long authorId) {
+	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getActivePostByAuthor(@PathVariable Long authorId) {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
 		List<PostResponseDto> responseList = service.getAuthorPostsByAuthorIdAndDeleted(authorId, false);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseList);
 		apiResponse.setMessage("Posts fetched successfully");
-		return apiResponse;
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 }
