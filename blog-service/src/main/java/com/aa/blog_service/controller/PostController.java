@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aa.blog_service.dto.PostRequestDto;
@@ -69,7 +70,7 @@ public class PostController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<ApiResponse<List<PostResponseDto>>> findAll() {
+	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getPosts() {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
 		List<PostResponseDto> responseList = service.getPosts();
 		apiResponse.setSuccess(true);
@@ -102,6 +103,17 @@ public class PostController {
 	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getActivePostByAuthor(@PathVariable Long authorId) {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
 		List<PostResponseDto> responseList = service.getAuthorPostsByAuthorIdAndDeleted(authorId, false);
+		apiResponse.setSuccess(true);
+		apiResponse.setResponse(responseList);
+		apiResponse.setMessage("Posts fetched successfully");
+		return ResponseEntity.ok(apiResponse);
+	}
+	
+	@GetMapping("/by-page")
+	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getPostsByPagination(@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber, 
+			@RequestParam(name="pageSize", defaultValue = "10") Integer pageSize) {
+		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
+		List<PostResponseDto> responseList = service.getPostsByPagination(pageNumber, pageSize);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseList);
 		apiResponse.setMessage("Posts fetched successfully");

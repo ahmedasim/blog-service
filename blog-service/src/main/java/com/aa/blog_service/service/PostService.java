@@ -22,5 +22,7 @@ public interface PostService{
 	List<PostResponseDto> getAuthorPostsByAuthorIdAndDeleted(Long authorId, boolean isDeleted);
 	
 	Post findById(Long postId);
+	
+	List<PostResponseDto> getPostsByPagination(Integer page, Integer size);	
 
 }

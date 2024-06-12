@@ -3,6 +3,8 @@ package com.aa.blog_service.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.aa.blog_service.dto.PostRequestDto;
@@ -91,6 +93,13 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public Post findById(Long postId) {
 		return repo.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found!"));
+	}
+	
+	
+	@Override
+	public List<PostResponseDto> getPostsByPagination(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return repo.findAll(pageable).stream().map(post -> getResponseDto(post)).toList();
 	}
 
 }

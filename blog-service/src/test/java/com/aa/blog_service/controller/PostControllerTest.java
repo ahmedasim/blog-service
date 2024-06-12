@@ -112,7 +112,7 @@ public class PostControllerTest {
     }
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testGetPosts() throws Exception {
         PostResponseDto responseDto1 = new PostResponseDto();
         responseDto1.setPostId(1L);
         responseDto1.setText("Sample Post 1");
@@ -206,5 +206,36 @@ public class PostControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.success").value(false));
+    }
+    
+    
+    @Test
+    public void testGetPostsByPagination() throws Exception {
+        PostResponseDto responseDto1 = new PostResponseDto();
+        responseDto1.setPostId(1L);
+        responseDto1.setText("Sample Post 1");
+
+        PostResponseDto responseDto2 = new PostResponseDto();
+        responseDto2.setPostId(2L);
+        responseDto2.setText("Sample Post 2");
+        
+        PostResponseDto responseDto3 = new PostResponseDto();
+        responseDto3.setPostId(3L);
+        responseDto3.setText("Sample Post 3");
+
+        List<PostResponseDto> responseList = Arrays.asList(responseDto1, responseDto2, responseDto3);
+
+        Integer pageNumber = 0;
+        Integer pageSize = 3;
+        
+        Mockito.when(postService.getPostsByPagination(pageNumber, pageSize)).thenReturn(responseList);
+
+        mockMvc.perform(get("/api/v1/posts/by-page").param("pageNumber", pageNumber.toString()).param("pageSize", pageSize.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.response[0].text").value("Sample Post 1")) 
+                .andExpect(jsonPath("$.response[1].text").value("Sample Post 2")) 
+                .andExpect(jsonPath("$.response[2].text").value("Sample Post 3")) 
+                .andExpect(jsonPath("$.message").value("Posts fetched successfully"));
     }
 }

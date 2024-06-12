@@ -17,6 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import com.aa.blog_service.dto.PostRequestDto;
 import com.aa.blog_service.dto.PostResponseDto;
@@ -174,5 +177,18 @@ public class PostServiceImplTest {
         });
 
         assertEquals("Post not found!", exception.getMessage());
+    }
+    
+    @Test
+    public void testGetPostsByPagination() {
+    	List<Post> posts = Arrays.asList(post);
+        Page<Post> postPage = new PageImpl<>(posts);
+        when(repo.findAll(any(Pageable.class))).thenReturn(postPage);
+        when(objectMapper.convertValue(post, PostResponseDto.class)).thenReturn(responseDto);
+
+        List<PostResponseDto> result = postService.getPostsByPagination(0, 1);
+
+        assertEquals(1, result.size());
+        assertEquals(responseDto, result.get(0));
     }
 }
