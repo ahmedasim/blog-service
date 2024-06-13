@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.aa.blog_service.dto.PostRequestDto;
@@ -97,8 +98,9 @@ public class PostServiceImpl implements PostService{
 	
 	
 	@Override
-	public List<PostResponseDto> getPostsByPagination(Integer page, Integer size) {
-		Pageable pageable = PageRequest.of(page, size);
+	public List<PostResponseDto> getPostsByPagination(Integer page, Integer size, String [] sort) {
+		Sort sortObj = "desc".equals(sort[1]) ? Sort.by(sort[0]).descending() : Sort.by(sort[0]).ascending();
+		Pageable pageable = PageRequest.of(page, size, sortObj);
 		return repo.findAll(pageable).stream().map(post -> getResponseDto(post)).toList();
 	}
 

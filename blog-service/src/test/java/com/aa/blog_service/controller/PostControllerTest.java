@@ -227,10 +227,12 @@ public class PostControllerTest {
 
         Integer pageNumber = 0;
         Integer pageSize = 3;
-        
-        Mockito.when(postService.getPostsByPagination(pageNumber, pageSize)).thenReturn(responseList);
+        String[] sort = new String[]{"postId", "asc"};
+        Mockito.when(postService.getPostsByPagination(pageNumber, pageSize, sort)).thenReturn(responseList);
 
-        mockMvc.perform(get("/api/v1/posts/by-page").param("pageNumber", pageNumber.toString()).param("pageSize", pageSize.toString()))
+        mockMvc.perform(get("/api/v1/posts/by-page").param("pageNumber", pageNumber.toString())
+        		.param("pageSize", pageSize.toString())
+        		.param("sort", "postId,asc"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.response[0].text").value("Sample Post 1")) 

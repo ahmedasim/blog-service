@@ -23,6 +23,6 @@ public interface PostService{
 	
 	Post findById(Long postId);
 	
-	List<PostResponseDto> getPostsByPagination(Integer page, Integer size);	
+	List<PostResponseDto> getPostsByPagination(Integer page, Integer size, String [] sort);	
 
 }

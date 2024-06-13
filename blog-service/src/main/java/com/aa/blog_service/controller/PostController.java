@@ -111,9 +111,10 @@ public class PostController {
 	
 	@GetMapping("/by-page")
 	public ResponseEntity<ApiResponse<List<PostResponseDto>>> getPostsByPagination(@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber, 
-			@RequestParam(name="pageSize", defaultValue = "10") Integer pageSize) {
+			@RequestParam(name="pageSize", defaultValue = "10") Integer pageSize,
+			@RequestParam(name="sort", defaultValue = "postId,asc") String [] sort) {
 		ApiResponse<List<PostResponseDto>> apiResponse = new ApiResponse<>();
-		List<PostResponseDto> responseList = service.getPostsByPagination(pageNumber, pageSize);
+		List<PostResponseDto> responseList = service.getPostsByPagination(pageNumber, pageSize, sort);
 		apiResponse.setSuccess(true);
 		apiResponse.setResponse(responseList);
 		apiResponse.setMessage("Posts fetched successfully");

@@ -180,13 +180,28 @@ public class PostServiceImplTest {
     }
     
     @Test
-    public void testGetPostsByPagination() {
+    public void testGetPostsByPaginationAsc() {
     	List<Post> posts = Arrays.asList(post);
         Page<Post> postPage = new PageImpl<>(posts);
         when(repo.findAll(any(Pageable.class))).thenReturn(postPage);
         when(objectMapper.convertValue(post, PostResponseDto.class)).thenReturn(responseDto);
+        String [] sort = new String []{"postId", "asc"};
 
-        List<PostResponseDto> result = postService.getPostsByPagination(0, 1);
+        List<PostResponseDto> result = postService.getPostsByPagination(0, 1, sort);
+
+        assertEquals(1, result.size());
+        assertEquals(responseDto, result.get(0));
+    }
+    
+    @Test
+    public void testGetPostsByPaginationDesc() {
+    	List<Post> posts = Arrays.asList(post);
+        Page<Post> postPage = new PageImpl<>(posts);
+        when(repo.findAll(any(Pageable.class))).thenReturn(postPage);
+        when(objectMapper.convertValue(post, PostResponseDto.class)).thenReturn(responseDto);
+        String [] sort = new String []{"postId", "desc"};
+
+        List<PostResponseDto> result = postService.getPostsByPagination(0, 1, sort);
 
         assertEquals(1, result.size());
         assertEquals(responseDto, result.get(0));
